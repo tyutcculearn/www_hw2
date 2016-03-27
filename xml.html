@@ -1,7 +1,4 @@
-
-
 <html>
-<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <head>
 <title>HW2</title>
 </head>
@@ -9,6 +6,7 @@
 <script>
 var inputurl;
 var htmltext="";
+//验证URL
 function parsexml(inputurl){
 	var url = inputurl.url.value;
 	console.log(url);
@@ -34,10 +32,13 @@ function parsexml(inputurl){
 	return;
 	}
 	console.log(xmlDoc);
-	
+
+
+	//Japanfood.xml
 	htmltext+='<div style="text-align:center;font-size:30;"><Strong>Menu</Strong><br /><br />';
     x=xmlDoc.getElementsByTagName("food");
-	
+
+	//No data
 	if(x.length==0){
 	htmltext+='No data.';}
 	for (i=0;i<x.length;i++)
@@ -53,12 +54,12 @@ function parsexml(inputurl){
 	htmltext+='<br /> <br /> ';
 	}
 	htmltext+='</div><br /><br />';
-    	
+
+	//basketball.xml
 	htmltext+='<div align="center" style="text-align:center;font-size:30;"><Strong>Basketball</Strong><br /><br />';
-	
-	
 	y=xmlDoc.getElementsByTagName("basketball");
-	
+
+	//No data
 	console.log(y);
 	if(y.length==0){
 	htmltext+='No data.';}
