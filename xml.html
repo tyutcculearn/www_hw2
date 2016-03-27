@@ -1,0 +1,120 @@
+
+
+<html>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<head>
+<title>HW2</title>
+</head>
+<body>
+<script>
+var inputurl;
+var htmltext="";
+function parsexml(inputurl){
+	var url = inputurl.url.value;
+	console.log(url);
+	if (url=="")
+	{alert("Error,Please input XML url.");
+	return;
+	}
+	if(window.XMLHttpRequest){
+	
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET",url,false);
+	
+	}
+	else
+	{
+	}
+	htmltext="<html><head></head><body>"
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+	if(xmlDoc==null)
+	{
+	alert("Error in XML file.") ;
+	return;
+	}
+	console.log(xmlDoc);
+	
+	htmltext+='<div style="text-align:center;font-size:30;"><Strong>Menu</Strong><br /><br />';
+    x=xmlDoc.getElementsByTagName("food");
+	
+	if(x.length==0){
+	htmltext+='No data.';}
+	for (i=0;i<x.length;i++)
+	{
+	 var foodname = xmlDoc.getElementsByTagName("foodname");
+	 var price = xmlDoc.getElementsByTagName("price");
+	 var description = xmlDoc.getElementsByTagName("description");
+	 var calories = xmlDoc.getElementsByTagName("calories");
+	
+	htmltext=htmltext+'<span><strong>'+foodname[i].childNodes[0].nodeValue+ '</strong><br>'+ price[i].childNodes[0].nodeValue +' ('+calories[i].childNodes[0].nodeValue+')</span>';
+	htmltext+='<br />';
+	htmltext=htmltext+"<span>"+description[i].childNodes[0].nodeValue+"</span>";
+	htmltext+='<br /> <br /> ';
+	}
+	htmltext+='</div><br /><br />';
+    	
+	htmltext+='<div align="center" style="text-align:center;font-size:30;"><Strong>Basketball</Strong><br /><br />';
+	
+	
+	y=xmlDoc.getElementsByTagName("basketball");
+	
+	console.log(y);
+	if(y.length==0){
+	htmltext+='No data.';}
+	
+	htmltext+="<div>";
+	for(k=0;k<y.length;k++){
+	var ImageA = xmlDoc.getElementsByTagName("Image");
+	htmltext+="<a href=#"+k+"><img src="+ImageA[k].childNodes[0].nodeValue+" width=120 height=120 /></a>";
+	}
+	htmltext+="</div><br/><br/>";
+	
+	for(j=0;j<y.length;j++)
+	{	
+	 var Team = xmlDoc.getElementsByTagName("Team");
+	 var City = xmlDoc.getElementsByTagName("City");
+	 var Color = xmlDoc.getElementsByTagName("Color");
+	 var BColor = xmlDoc.getElementsByTagName("BColor");
+	 var Image = xmlDoc.getElementsByTagName("Image");
+	 var name = xmlDoc.getElementsByTagName("name");
+	 var age = xmlDoc.getElementsByTagName("age");
+	 var position = xmlDoc.getElementsByTagName("position");
+	 var Coach = xmlDoc.getElementsByTagName("Coach");
+	 var Stadium = xmlDoc.getElementsByTagName("Stadium");
+	 var video = xmlDoc.getElementsByTagName("Video");
+	 
+				htmltext+= '<a name="'+j+'"><table border="1" align="center" width="800" height="700" style="text-align:center;color:'
+				+Color[j].childNodes[0].nodeValue+'" bgcolor="'
+				+BColor[j].childNodes[0].nodeValue+'"><tr><th colspan="4" style="font-size:20;color:'
+				+Color[j].childNodes[0].nodeValue+'">'
+				+Team[j].childNodes[0].nodeValue+'</th></tr><tr><th rowspan="2"><img src ="'
+				+Image[j].childNodes[0].nodeValue+'"width=50 height=50></th><th>All-star</th><th>Coach</th><th>Stadium</th></tr><tr><td><table border="1" width=100% height=100% style="text-align:center;color:'
+				+Color[j].childNodes[0].nodeValue+'"><tr><td>'
+				+name[j].childNodes[0].nodeValue+'</td><td>Age:'
+				+age[j].childNodes[0].nodeValue+'</td><td>'
+				+position[j].childNodes[0].nodeValue+'</td></tr></table></td><td>'
+				+Coach[j].childNodes[0].nodeValue+'</td><td>'
+				+Stadium[j].childNodes[0].nodeValue+'</td></tr><tr><td colspan="4"><iframe width=100% height=100%  src="'
+				+video[j].childNodes[0].nodeValue+'"></iframe>'+'</td></tr></table></a><br><br>';
+	}
+	
+	htmltext+='</div>';
+	htmltext+='</body></html>';
+	nwindow=window.open("","Result" ,"height=800,width=1000");
+	
+	nwindow.document.write(htmltext);
+
+}
+</script>
+<div style="text-align:center">
+<div style="font-size:36;text-align:center;">Enter XML File</div></br>
+
+<FORM NAME="inputxml">
+<INPUT TYPE="text" NAME="url" SIZE=50> </br></br>
+<a href="http://dmplus.cs.ccu.edu.tw/~sest2015/basketball.xml"> View XSL result for basketball.xml</a><br />
+<INPUT TYPE="button" VALUE="Submit Query" onclick="parsexml(this.form)" ></br>
+</FORM> 
+</div>
+</body>
+</html>
